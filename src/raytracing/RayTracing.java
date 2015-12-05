@@ -18,6 +18,7 @@ public class RayTracing {
         theSolver.defineStaticTrees();
         theSolver.defineStaticWall();
         theSolver.defineStaticObserver();
+        theSolver.performRaytracing();
     }
     
 }
