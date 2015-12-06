@@ -10,6 +10,10 @@ import java.util.ArrayList;
  * @author ivan
  */
 public class RayTracingSolver {
+    RayTracingSolver theSolver;
+    public void initRayTracer() {
+        theSolver = new RayTracingSolver();
+    }
     /**
      * all trees in the single array
      */
@@ -57,7 +61,7 @@ public class RayTracingSolver {
     /**
      * define observer's coordinates in the static manner
      */
-    void defineStaticObserver() {
+    public void defineStaticObserver() {
         observerX = 27.5;
         observerY = 0.0;
     }
@@ -67,6 +71,7 @@ public class RayTracingSolver {
      * All data definitions should be done beforehand
      */
     public void performRaytracing() {
+        
         //During raytracing we may find that ray intersects several objects, for example:
         //several circles-trees in front of the wall and several circles-trees at back, as the wall by itself.
         //it means that we should check intersections with all objects on scene and 
@@ -115,7 +120,9 @@ public class RayTracingSolver {
                         intersectionIndex = -1;
                     }
                 }
-             ;   
+                //draw intersection on image (put the tracing ray to drawing queue)
+                maintracing.RayTracing.theGlobalGraphics.tracingRaysReflection.add(new SingleSectionData(observerX, observerY,intersectPoint.XCoord, intersectPoint.YCoord));
+                
             } else {
                 if ( (alphaCurrRadians>Math.PI)&&(alphaCurrRadians<2*Math.PI) ) {
                     //in a trignometric sense 0 is the same as 2*Math.PI
@@ -208,5 +215,11 @@ public class RayTracingSolver {
         if ((P<0)||(P>1)) {intersectPoint=null; return intersectPoint;}
         if (P*Y1+(1-P)*Y2!=Y) {intersectPoint=null; return intersectPoint;}
         return intersectPoint;
+    }
+    
+    public void initAllHardcodedData() {
+        this.defineStaticTrees();
+        this.defineStaticWall();
+        this.defineStaticObserver();
     }
 }
